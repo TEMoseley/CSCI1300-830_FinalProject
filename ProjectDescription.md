@@ -4,7 +4,7 @@
 
 \## Theme
 
-Based around the Justice League from DC Comics, and the player plays as Batman.
+Based around the Justice League from DC Comics, and the player plays as Robin.
 
 \## Goal
 
@@ -12,17 +12,27 @@ Build a new Justice Leage headquarters.
 
 \## Planned limited resource
 
-Money, in US dollars. Other resources may be necessary to complete the end goal and can be bought, but it all hinges upon the almighty dollar.
+Money, restored daily.
 
 \## Plan for handling time
 
-Each transactional choice, such as gathering a resource, takes one hour. Every travel between named locations takes one hour. After 8 hours, a day passes and Batman's position resets to Gotham.
+Every transactional choice, such as gathering a resource, take one hour. Every travel between named locations takes one hour. After 8 hours, a day passes and Robin's position resets to Gotham.
 
 \## Classes
 
-(TBA — list each class and what it does)
+Player - it stores the player's prefered pronouns, their money, their inventory, their skill levels, and any temporary stat modifiers.
 
-\## Extra credit
+Game - player's current location, the hour, the day, the character list, the location list, the main menu, and pretty much anything else related to the game itself.
 
-None
+Item - it stores item name, item value, and stat modification if consumed.
+
+Character - it stores character name, their location, if they are good or bad, relationship level, and the resource and/or item they provide.
+
+Hero - derived class of Character
+
+Villain - derived class of Character
+
+Location - name, unlocked status, characters there, resources available.
+
+
 
