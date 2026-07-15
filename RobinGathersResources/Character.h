@@ -9,10 +9,9 @@ class Character
 {
 private:
     std::string name;
-    std::string dialog;
 
 public:
-    
+    Character(std::string n);
 };
 
 

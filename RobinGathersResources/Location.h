@@ -21,15 +21,12 @@ public:
     std::string getName();
     int getLocationNumber();
     std::string getDescription();
-    static MenuResult printLocationMenu(Location cL);
 };
 
-MenuResult printGothamMenu();
-
-MenuResult printCentralCityMenu();
-
-MenuResult printMetropolisMenu();
-
-MenuResult printThemiscyraMenu();
+MenuResult displayLocationMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+MenuResult displayGothamMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+MenuResult displayCentralCityMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+MenuResult displayMetropolisMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+MenuResult displayThemiscyraMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
 
 #endif

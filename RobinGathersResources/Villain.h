@@ -5,17 +5,20 @@
 #include <vector>
 #include <iostream>
 
-#include "Character.h"
 #include "Game.h"
-#include "Hero.h"
-#include "Item.h"
-#include "Location.h"
-#include "Player.h"
-#include "Villain.h"
+#include "Character.h"
 
 class Villain : public Character {
 private:
+    int villainNumber;
     int riskLevel;
+
+public:
+    Villain(std::string n, int vN);
 };
+
+MenuResult displayClayfaceMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+MenuResult displayReverseFlashMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+MenuResult displayLexLuthorMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
 
 #endif
