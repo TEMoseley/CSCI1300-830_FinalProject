@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 
+struct ReturnStruct;
 class Location;
 class Player;
 class Hero;
@@ -31,8 +32,8 @@ private:
 
 public:
     Game(int d);
-    MenuResult displayMap(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
-    MenuResult displayGameStats(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+    ReturnStruct displayMap(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+    ReturnStruct displayGameStats(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
     void displayWinStats(Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
     int getTime();
     int getDay();
@@ -57,9 +58,9 @@ public:
     int getCompletionPercent();
 };
 
-MenuResult displayMainMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+ReturnStruct displayMainMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
 int promptInt(std::string prompt);
 std::string readMap(std::string filename);
-MenuResult displayTravelMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+ReturnStruct displayTravelMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
 
 #endif

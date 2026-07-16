@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "ReturnStruct.h"
 #include "Game.h"
 #include "Location.h"
 #include "Player.h"
@@ -10,6 +11,8 @@
 #include "Villain.h"
 
 using namespace std;
+
+
 
 string readMap(string filename){
     ifstream inFile(filename);
@@ -44,7 +47,7 @@ Game::Game(int d){
     map = readMap("map.txt");
 }
 
-MenuResult Game::displayMap(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct Game::displayMap(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
     cout << endl << map << endl;
     cout << "You are in: " << p.getCurrentLocation().getName() << endl;
     while (true){
@@ -52,7 +55,7 @@ MenuResult Game::displayMap(Game g, Player p, Location l0, Location l1, Location
             break;
         }
     }
-    return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+    return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
 }
 
 int Game::getTime(){
@@ -171,7 +174,7 @@ int Game::getCompletionPercent(){
     return completionPercent;
 }
 
-MenuResult Game::displayGameStats(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct Game::displayGameStats(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
     cout << "Money still needed: $" << moneyStillNeeded << "k" << endl;
     cout << "Kryptonite crystals still needed: " << kryptoniteStillNeeded << endl;
     cout << "Vials of velocity serum still needed: " << velocitySerumStillNeeded << endl;
@@ -183,7 +186,7 @@ MenuResult Game::displayGameStats(Game g, Player p, Location l0, Location l1, Lo
             break;
         }
     }
-    return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+    return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
 }
 
 void Game::displayWinStats(Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
@@ -239,7 +242,8 @@ void Game::displayWinStats(Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villa
     cout << "Thanks for playing!" << endl; 
 }
 
-MenuResult displayMainMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayMainMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+    
     cout << "Press 1 to view time, day, and completion." << endl;
     cout << "Press 2 to view inventory." << endl;
     cout << "Press 3 to travel." << endl;
@@ -250,36 +254,89 @@ MenuResult displayMainMenu(Game g, Player p, Location l0, Location l1, Location 
 
     switch (promptInt("Select option: ")) {
         case 1:
-            return g.displayGameStats(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return g.displayGameStats(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         case 2:
-            return p.displayCurrentInventory(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return p.displayCurrentInventory(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         case 3:
-            return displayTravelMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayTravelMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         case 4:
-            return g.displayMap(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
-        case 5: 
+            return g.displayMap(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+        case 5:{
             cout << p.getCurrentLocation().getDescription() << endl;
             while (true){
                 if (promptInt("To return to main menu, press 1: ") == 1){
                     break;
                 }
             }
-            return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
-        case 6:
-            return displayLocationMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
-        case 7:
+            ReturnStruct result = displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            mR = result.mR;
+            g = result.g;
+            p = result.p;
+            l0 = result.l0;
+            l1 = result.l1;
+            l2 = result.l2;
+            l3 = result.l3;
+            h0 = result.h0;
+            h1 = result.h1;
+            h2 = result.h2;
+            h3 = result.h3;
+            v0 = result.v0;
+            v1 = result.v1;
+            v2 = result.v2;
+            ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+            return finalResult;
+        }
+        case 6:{
+            return displayLocationMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+        }
+        case 7:{
             if (promptInt("Are you sure? Press 1 for yes, anything else for no: ") == 1){
-                return END;
+                ReturnStruct returnStruct{END, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return returnStruct;
             }
             else {
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
             }
-        default:
+        }
+        default:{
             cout << "Unrecognized value." << endl;
-            return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            ReturnStruct result = displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            mR = result.mR;
+            g = result.g;
+            p = result.p;
+            l0 = result.l0;
+            l1 = result.l1;
+            l2 = result.l2;
+            l3 = result.l3;
+            h0 = result.h0;
+            h1 = result.h1;
+            h2 = result.h2;
+            h3 = result.h3;
+            v0 = result.v0;
+            v1 = result.v1;
+            v2 = result.v2;
+            ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+            return finalResult;
+        }
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 
 int promptInt(string prompt){
@@ -321,7 +378,7 @@ int promptInt(string prompt){
     return userInt;
 }
 
-MenuResult displayTravelMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayTravelMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
     if (p.getCurrentLocation().getLocationNumber() == 0){
         cout << "Press 1 to travel to Central City, costs 1 hour." << endl;
         cout << "Press 2 to return to main menu." << endl;
@@ -331,16 +388,33 @@ MenuResult displayTravelMenu(Game g, Player p, Location l0, Location l1, Locatio
                 p.setCurrentLocation(l1);
                 g.setTime(g.getTime() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayLocationMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    return displayLocationMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
                 }
             case 2: 
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayTravelMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayTravelMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
 
@@ -354,25 +428,43 @@ MenuResult displayTravelMenu(Game g, Player p, Location l0, Location l1, Locatio
                 p.setCurrentLocation(l0);
                 g.setTime(g.getTime() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayLocationMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    return displayLocationMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
                 }
             case 2:
                 p.setCurrentLocation(l3);
                 g.setTime(g.getTime() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayLocationMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    return displayLocationMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
                 }
             case 3: 
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayTravelMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
 
@@ -386,25 +478,43 @@ MenuResult displayTravelMenu(Game g, Player p, Location l0, Location l1, Locatio
                 p.setCurrentLocation(l1);
                 g.setTime(g.getTime() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayLocationMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    return displayLocationMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
                 }
             case 2:
                 p.setCurrentLocation(l2);
                 g.setTime(g.getTime() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayLocationMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    return displayLocationMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
                 }
             case 3: 
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayTravelMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayTravelMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
 
@@ -417,19 +527,37 @@ MenuResult displayTravelMenu(Game g, Player p, Location l0, Location l1, Locatio
                 p.setCurrentLocation(l3);
                 g.setTime(g.getTime() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayLocationMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    return displayLocationMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
                 }
             case 2: 
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayTravelMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayTravelMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;;
         }
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 

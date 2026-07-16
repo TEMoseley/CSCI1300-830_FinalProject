@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 
+#include "ReturnStruct.h"
 #include "Game.h"
 #include "Location.h"
 #include "Player.h"
@@ -10,8 +11,8 @@
 
 using namespace std;
 
-MenuResult displayGothamMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
-
+ReturnStruct displayGothamMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+    
     if (p.getArrestedClayface() == false){
         cout << "Press 1 to view main menu." << endl;
         cout << "Press 2 to talk to Batman." << endl;
@@ -19,14 +20,30 @@ MenuResult displayGothamMenu(Game g, Player p, Location l0, Location l1, Locatio
 
         switch (promptInt("Select option: ")) {
             case 1:
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 2:
-                return displayBatmanMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayBatmanMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 3:
-                return displayClayfaceMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayClayfaceMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayGothamMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayGothamMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
     else{
@@ -35,19 +52,36 @@ MenuResult displayGothamMenu(Game g, Player p, Location l0, Location l1, Locatio
 
         switch (promptInt("Select option: ")) {
             case 1:
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 2:
-                return displayBatmanMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayBatmanMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayGothamMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayGothamMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 
-MenuResult displayCentralCityMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayCentralCityMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
 
     if (p.getArrestedReverseFlash() == false){
         cout << "Press 1 to view main menu." << endl;
@@ -56,14 +90,30 @@ MenuResult displayCentralCityMenu(Game g, Player p, Location l0, Location l1, Lo
 
         switch (promptInt("Select option: ")) {
             case 1:
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 2:
-                return displayFlashMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayFlashMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 3:
-                return displayReverseFlashMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayReverseFlashMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayCentralCityMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayCentralCityMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
     else{
@@ -72,19 +122,36 @@ MenuResult displayCentralCityMenu(Game g, Player p, Location l0, Location l1, Lo
 
         switch (promptInt("Select option: ")) {
             case 1:
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 2:
-                return displayFlashMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayFlashMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayCentralCityMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayCentralCityMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 
-MenuResult displayMetropolisMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayMetropolisMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
 
     if (p.getArrestedLexLuthor() == false){
         cout << "Press 1 to view main menu." << endl;
@@ -93,14 +160,30 @@ MenuResult displayMetropolisMenu(Game g, Player p, Location l0, Location l1, Loc
 
         switch (promptInt("Select option: ")) {
             case 1:
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 2:
-                return displaySupermanMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displaySupermanMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 3:
-                return displayLexLuthorMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayLexLuthorMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayMetropolisMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayMetropolisMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
     else{
@@ -109,34 +192,68 @@ MenuResult displayMetropolisMenu(Game g, Player p, Location l0, Location l1, Loc
 
         switch (promptInt("Select option: ")) {
             case 1:
-                return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             case 2:
-                return displaySupermanMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displaySupermanMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             default:
                 cout << "Unrecognized value." << endl;
-                return displayMetropolisMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayMetropolisMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
         }
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 
-MenuResult displayThemiscyraMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayThemiscyraMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
 
     cout << "Press 1 to view main menu." << endl;
     cout << "Press 2 to talk to Wonder Woman." << endl;
 
     switch (promptInt("Select option: ")) {
         case 1:
-            return displayMainMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayMainMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         case 2:
-            return displayWonderWomanMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayWonderWomanMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         default:
             cout << "Unrecognized value." << endl;
-            return displayThemiscyraMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            ReturnStruct result = displayThemiscyraMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 
 Location::Location(string n, int lN, string d){
@@ -157,19 +274,20 @@ string Location::getDescription(){
     return description;
 }
 
-MenuResult displayLocationMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayLocationMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
     
     switch (p.getCurrentLocation().getLocationNumber()) {
         case 0:
-            return displayGothamMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayGothamMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         case 1:
-            return displayCentralCityMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayCentralCityMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         case 2:
-            return displayMetropolisMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayMetropolisMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         case 3: 
-            return displayThemiscyraMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayThemiscyraMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 

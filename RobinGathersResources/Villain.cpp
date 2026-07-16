@@ -2,9 +2,11 @@
 #include <vector>
 #include <iostream>
 
+#include "ReturnStruct.h"
 #include "Game.h"
 #include "Player.h"
 #include "Character.h"
+#include "Hero.h"
 #include "Villain.h"
 
 using namespace std;
@@ -21,7 +23,7 @@ int Villain::getRiskLevel(){
     return riskLevel;
 }
 
-MenuResult displayClayfaceMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayClayfaceMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
     cout << "\"Robin, what do you want? I'm Batman, durrr!\"" << endl;
     cout << "Press 1 to get $12k, costs 1 hour and 30 cement, raises ending badness." << endl;
     cout << "Press 2 to use Lasso of Truth, get $6k and 15 cement, one time use." << endl;
@@ -35,15 +37,48 @@ MenuResult displayClayfaceMenu(Game g, Player p, Location l0, Location l1, Locat
                 g.setTime(g.getTime() + 1);
                 v0.setRiskLevel(v0.getRiskLevel() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayClayfaceMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    ReturnStruct result = displayClayfaceMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    mR = result.mR;
+                    g = result.g;
+                    p = result.p;
+                    l0 = result.l0;
+                    l1 = result.l1;
+                    l2 = result.l2;
+                    l3 = result.l3;
+                    h0 = result.h0;
+                    h1 = result.h1;
+                    h2 = result.h2;
+                    h3 = result.h3;
+                    v0 = result.v0;
+                    v1 = result.v1;
+                    v2 = result.v2;
+                    ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return finalResult;
                 }
             }
             else{
                 cout << "Not enough cement bags." << endl;
-                return displayClayfaceMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayClayfaceMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
             }
         case 2:
             if (p.getLassoOfTruth() >= 1){
@@ -51,23 +86,56 @@ MenuResult displayClayfaceMenu(Game g, Player p, Location l0, Location l1, Locat
                 p.setMoney(p.getMoney() + 6);
                 p.setArrestedClayface(true);
                 h0.setRelationshipLevel(h0.getRelationshipLevel() + 1);
-                return displayGothamMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayGothamMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             }
             else{
                 cout << "Need Lasso of Truth." << endl;
-                return displayClayfaceMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayClayfaceMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
             }
         case 3:
-            return displayGothamMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayGothamMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         default:
             cout << "Unrecognized value." << endl;
-            return displayClayfaceMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            ReturnStruct result = displayClayfaceMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 
-MenuResult displayReverseFlashMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayReverseFlashMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
     cout << "\"The Flash thinks speed is a gift. We both know it's a weapon.\"" << endl;
     cout << "Press 1 to get $20k, costs 1 hour and 5 Velocity Serum, raises ending badness." << endl;
     cout << "Press 2 to use Lasso of Truth, get $10k and 2 Velocity Serum, one time use." << endl;
@@ -81,15 +149,48 @@ MenuResult displayReverseFlashMenu(Game g, Player p, Location l0, Location l1, L
                 g.setTime(g.getTime() + 1);
                 v1.setRiskLevel(v1.getRiskLevel() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayReverseFlashMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    ReturnStruct result = displayReverseFlashMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
                 }
             }
             else{
                 cout << "Not enough Velocity Serum." << endl;
-                return displayReverseFlashMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+               ReturnStruct result = displayReverseFlashMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
             }
         case 2:
             if (p.getLassoOfTruth() >= 1){
@@ -97,23 +198,56 @@ MenuResult displayReverseFlashMenu(Game g, Player p, Location l0, Location l1, L
                 p.setMoney(p.getMoney() + 10);
                 p.setArrestedReverseFlash(true);
                 h1.setRelationshipLevel(h1.getRelationshipLevel() + 1);
-                return displayCentralCityMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayCentralCityMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             }
             else{
                 cout << "Need Lasso of Truth." << endl;
-                return displayReverseFlashMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayReverseFlashMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
             }
         case 3:
-            return displayCentralCityMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayCentralCityMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         default:
             cout << "Unrecognized value." << endl;
-            return displayReverseFlashMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            ReturnStruct result = displayReverseFlashMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            mR = result.mR;
+            g = result.g;
+            p = result.p;
+            l0 = result.l0;
+            l1 = result.l1;
+            l2 = result.l2;
+            l3 = result.l3;
+            h0 = result.h0;
+            h1 = result.h1;
+            h2 = result.h2;
+            h3 = result.h3;
+            v0 = result.v0;
+            v1 = result.v1;
+            v2 = result.v2;
+            ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+            return finalResult;
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 
-MenuResult displayLexLuthorMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
+ReturnStruct displayLexLuthorMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
     cout << "\"Well, well. A little bird in the big city.\"" << endl;
     cout << "Press 1 to get $24k, costs 1 hour and 4 kryptonite, raises ending badness." << endl;
     cout << "Press 2 to use Lasso of Truth, get $12k and 2 kryptonite, one time use." << endl;
@@ -127,15 +261,48 @@ MenuResult displayLexLuthorMenu(Game g, Player p, Location l0, Location l1, Loca
                 g.setTime(g.getTime() + 1);
                 v2.setRiskLevel(v2.getRiskLevel() + 1);
                 if (g.getTime() > 8){
-                    return NEW_DAY;
+                    ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return returnStruct;
                 }
                 else{
-                    return displayLexLuthorMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    ReturnStruct result = displayLexLuthorMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                    mR = result.mR;
+                    g = result.g;
+                    p = result.p;
+                    l0 = result.l0;
+                    l1 = result.l1;
+                    l2 = result.l2;
+                    l3 = result.l3;
+                    h0 = result.h0;
+                    h1 = result.h1;
+                    h2 = result.h2;
+                    h3 = result.h3;
+                    v0 = result.v0;
+                    v1 = result.v1;
+                    v2 = result.v2;
+                    ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                    return finalResult;
                 }
             }
             else{
                 cout << "Not enough kryptonite." << endl;
-                return displayLexLuthorMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayLexLuthorMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
             }
         case 2:
             if (p.getLassoOfTruth() >= 1){
@@ -143,20 +310,53 @@ MenuResult displayLexLuthorMenu(Game g, Player p, Location l0, Location l1, Loca
                 p.setMoney(p.getMoney() + 12);
                 p.setArrestedLexLuthor(true);
                 h2.setRelationshipLevel(h2.getRelationshipLevel() + 1);
-                return displayMetropolisMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                return displayMetropolisMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
             }
             else{
                 cout << "Need Lasso of Truth." << endl;
-                return displayLexLuthorMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                ReturnStruct result = displayLexLuthorMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
             }
         case 3:
-            return displayMetropolisMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            return displayMetropolisMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
         default:
             cout << "Unrecognized value." << endl;
-            return displayLexLuthorMenu(g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+            ReturnStruct result = displayLexLuthorMenu(mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2);
+                mR = result.mR;
+                g = result.g;
+                p = result.p;
+                l0 = result.l0;
+                l1 = result.l1;
+                l2 = result.l2;
+                l3 = result.l3;
+                h0 = result.h0;
+                h1 = result.h1;
+                h2 = result.h2;
+                h3 = result.h3;
+                v0 = result.v0;
+                v1 = result.v1;
+                v2 = result.v2;
+                ReturnStruct finalResult{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+                return finalResult;
     }
 
-    return CONTINUE;
+    ReturnStruct returnStruct{CONTINUE, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
+    return returnStruct;
 }
 
 int totalRisk(Villain v0, Villain v1, Villain v2){

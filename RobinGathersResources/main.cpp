@@ -3,14 +3,13 @@
 #include <iostream>
 #include <fstream>
 
+#include "ReturnStruct.h"
 #include "Location.h"
 #include "Player.h"
 #include "Hero.h"
 #include "Villain.h"
 
 using namespace std;
-
-
 
 int main(){
     Game game(1);
@@ -42,7 +41,7 @@ int main(){
     cout << "cash myself. I'll give you $30,000 a day to spend." << endl;
     cout << "You have 8 hours a day before you must come back to" << endl;
     cout << "Gotham to sleep. I'll also start you off with a few" << endl;
-    cout << "resources for trading to ease you in.\"" << endl;
+    cout << "bags of cement. Carrying them builds character.\"" << endl;
 
 
     while (true){
@@ -52,16 +51,18 @@ int main(){
     }
 
     while (true){
-        if(displayMainMenu(game, player, gotham, centralCity, metropolis, themiscyra, batman, flash, superman, wonderWoman, clayface, reverseFlash, lexLuthor) >= END){
+        if(displayMainMenu(CONTINUE, game, player, gotham, centralCity, metropolis, themiscyra, batman, flash, superman, wonderWoman, clayface, reverseFlash, lexLuthor).mR >= END){
             break;
         }
         else{
-            game.setTime(1);
-            game.setDay(game.getDay() + 1);
-            player.setCurrentLocation(gotham);
-            player.setMoney(player.getMoney() + 30);
-            cout << "It's a new day. You are now on day " << game.getDay() << endl;
-            cout << "Batman gave you another $30k for today. Spend it wisely." << endl;
+            if (game.getTime() >= 8){
+                game.setTime(1);
+                game.setDay(game.getDay() + 1);
+                player.setCurrentLocation(gotham);
+                player.setMoney(player.getMoney() + 30);
+                cout << "It's a new day. You are now on day " << game.getDay() << endl;
+                cout << "Batman gave you another $30k for today. Spend it wisely." << endl;
+            }
         }
     }
     
