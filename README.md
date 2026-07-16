@@ -4,19 +4,19 @@
 
 \## Theme
 
-Based around the Justice League from DC Comics, and the player plays as Robin. 
+Based around the Justice League from DC Comics, and the player plays as Robin. The "plot" is that Batman uses Robin to handle the gathering of some materials necessary for the construction of a new Justice League headquarters, which will be an orbiting space station (this is canonically a thing). 
 
 \## Goal
 
-Build a new Justice Leage headquarters.
+Build a new Justice League orbiting headquarters.
 
 \## How to compile and run
 
-(TBA)
+Requires MSYS2 with the ucrt64 toolchain installed (pacman -S mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-gdb), installed at the default path C:\msys64. If you have a different toolchain (e.g. mingw64) or a custom install path, update the paths in .vscode/tasks.json and .vscode/launch.json accordingly.
 
 \## How to play
 
-(TBA)
+Just enter numbers to traverse the menus as directed.
 
 \## Classes
 

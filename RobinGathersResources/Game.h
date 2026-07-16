@@ -6,21 +6,22 @@
 #include <iostream>
 #include <fstream>
 
+class Location;
 class Player;
 class Hero;
 class Villain;
 
-enum MenuResult : int { CONTINUE, NEW_DAY, END, WIN };
 
-class Game
-{
+enum MenuResult { CONTINUE, NEW_DAY, END, WIN };
+
+class Game{
 private:
     int time;
     int day;
-    int moneyDonated;
-    int kryptoniteDonated;
-    int velocitySerumDonated;
-    int cementBagsDonated;
+    int moneyDeposited;
+    int kryptoniteDeposited;
+    int velocitySerumDeposited;
+    int cementBagsDeposited;
     int moneyStillNeeded;
     int kryptoniteStillNeeded;
     int velocitySerumStillNeeded;
@@ -30,15 +31,35 @@ private:
 
 public:
     Game(int d);
-    MenuResult displayMap(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
-    MenuResult displayGameStats(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+    MenuResult displayMap(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+    MenuResult displayGameStats(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
     void displayWinStats(Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+    int getTime();
     int getDay();
+    void setTime(int t);
+    void setDay(int d);
+    void setMoneyDeposited(int mD);
+    void setKryptoniteDeposited(int kD);
+    void setVelocitySerumDeposited(int vSD);
+    void setCementBagsDeposited(int cBD);
+    void setMoneyStillNeeded(int mSN);
+    void setKryptoniteStillNeeded(int kSN);
+    void setVelocitySerumStillNeeded(int vSSN);
+    void setCementBagsStillNeeded(int cBSN);
+    int getMoneyDeposited();
+    int getKryptoniteDeposited();
+    int getVelocitySerumDeposited();
+    int getCementBagsDeposited();
+    int getMoneyStillNeeded();
+    int getKryptoniteStillNeeded();
+    int getVelocitySerumStillNeeded();
+    int getCementBagsStillNeeded();
     int getCompletionPercent();
 };
 
-MenuResult displayMainMenu(Game g, Player p, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
+MenuResult displayMainMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
 int promptInt(std::string prompt);
 std::string readMap(std::string filename);
+MenuResult displayTravelMenu(Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2);
 
 #endif

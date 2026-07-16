@@ -18,7 +18,7 @@ int main(){
     Location gotham("Gotham", 0, "Gotham, home of the Batman.");
     Location centralCity("Central City", 1, "Central City, home of The Flash. Here you can find Velocity Serum.");
     Location metropolis("Metropolis", 2, "Metropolis, home of Superman. Here you can find kryptonite.");
-    Location Themiscyra("Themiscyra", 3, "Themiscyra, home of Wonder Woman. Here you can find the Lasso of Truth.");
+    Location themiscyra("Themiscyra", 3, "Themiscyra, home of Wonder Woman. Here you can find the Lasso of Truth.");
 
     Hero batman("Batman", 0);
     Hero flash("The Flash", 1);
@@ -31,14 +31,37 @@ int main(){
 
     Player player(gotham);
 
-    // Start of game message
+    cout << "Batman: \"Robin, I have a new mission for you." << endl;
+    cout << "Over the next several days, I need you to collect" << endl;
+    cout << "15 kryptonite crystals, 20 vials of Velocity" << endl;
+    cout << "Serum, and 300 bags of cement. This will all be" << endl;
+    cout << "used to construct a new Justice League headquarters" << endl;
+    cout << "in outer space, in Earth's orbit. Talk to Superman" << endl;
+    cout << "and he'll fly the deposited resources up. Also, I owe" << endl;
+    cout << "Superman $60,000. I don't have time to deliver the" << endl;
+    cout << "cash myself. I'll give you $30,000 a day to spend." << endl;
+    cout << "You have 8 hours a day before you must come back to" << endl;
+    cout << "Gotham to sleep. I'll also start you off with a few" << endl;
+    cout << "resources for trading to ease you in.\"" << endl;
+
 
     while (true){
-        if(displayMainMenu(game, player, batman, flash, superman, wonderWoman, clayface, reverseFlash, lexLuthor) >= END){
+        if (promptInt("To start the game, press 1: ") == 1){
+            break;
+        }
+    }
+
+    while (true){
+        if(displayMainMenu(game, player, gotham, centralCity, metropolis, themiscyra, batman, flash, superman, wonderWoman, clayface, reverseFlash, lexLuthor) >= END){
             break;
         }
         else{
+            game.setTime(1);
+            game.setDay(game.getDay() + 1);
+            player.setCurrentLocation(gotham);
+            player.setMoney(player.getMoney() + 30);
             cout << "It's a new day. You are now on day " << game.getDay() << endl;
+            cout << "Batman gave you another $30k for today. Spend it wisely." << endl;
         }
     }
     
@@ -50,9 +73,6 @@ int main(){
             }
         }
     }
-    
-
-    
 
     return 0;
 }

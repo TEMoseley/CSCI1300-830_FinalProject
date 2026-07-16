@@ -4,15 +4,15 @@
 
 \## Theme
 
-Based around the Justice League from DC Comics, and the player plays as Robin.
+Based around the Justice League from DC Comics, and the player plays as Robin. The "plot" is that Batman uses Robin to handle the gathering of some materials necessary for the construction of a new Justice League headquarters, which will be an orbiting space station (this is canonically a thing). 
 
 \## Goal
 
-Build a new Justice Leage headquarters.
+Build a new Justice League orbiting headquarters.
 
 \## Planned limited resource
 
-Money, restored daily.
+Money, and the player receives a small amount of money daily.
 
 \## Plan for handling time
 
@@ -20,19 +20,17 @@ Every transactional choice, such as gathering a resource, take one hour. Every t
 
 \## Classes
 
-Player - it stores the player's prefered pronouns, their money, their inventory, their skill levels, and any temporary stat modifiers.
+Player - it stores the player's curent location and inventory, as well as bools to track player actions.
 
-Game - player's current location, the hour, the day, the character list, the location list, the main menu, and pretty much anything else related to the game itself.
+Game - Tracks time mechanics, objective completion, and stores the map.
 
-Item - it stores item name, item value, and stat modification if consumed.
+Character - it stores the character's name.
 
-Character - it stores character name, their location, if they are good or bad, relationship level, and the resource and/or item they provide.
+Hero - derived class of Character, includes a relationship score for use in the game ending display.
 
-Hero - derived class of Character
+Villain - derived class of Character, includes a risk score to be used by a Villain method that sums the total risk level across all villain characters and uses that to display one unified ending for all the villains.
 
-Villain - derived class of Character
-
-Location - name, unlocked status, characters there, resources available.
+Location - Stores the name, a brief description, and a location number for ease of use.
 
 
 
