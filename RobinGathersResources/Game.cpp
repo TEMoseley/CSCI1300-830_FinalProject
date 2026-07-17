@@ -244,7 +244,7 @@ void Game::displayWinStats(Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villa
 
 ReturnStruct displayMainMenu(MenuResult mR, Game g, Player p, Location l0, Location l1, Location l2, Location l3, Hero h0, Hero h1, Hero h2, Hero h3, Villain v0, Villain v1, Villain v2){
     
-    cout << "Press 1 to view time, day, and completion." << endl;
+    cout << "Press 1 to view progress to completion." << endl;
     cout << "Press 2 to view inventory." << endl;
     cout << "Press 3 to travel." << endl;
     cout << "Press 4 to display map." << endl;
@@ -387,7 +387,7 @@ ReturnStruct displayTravelMenu(MenuResult mR, Game g, Player p, Location l0, Loc
             case 1:
                 p.setCurrentLocation(l1);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -427,7 +427,7 @@ ReturnStruct displayTravelMenu(MenuResult mR, Game g, Player p, Location l0, Loc
             case 1:
                 p.setCurrentLocation(l0);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -437,7 +437,7 @@ ReturnStruct displayTravelMenu(MenuResult mR, Game g, Player p, Location l0, Loc
             case 2:
                 p.setCurrentLocation(l3);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -477,7 +477,7 @@ ReturnStruct displayTravelMenu(MenuResult mR, Game g, Player p, Location l0, Loc
             case 1:
                 p.setCurrentLocation(l1);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -487,7 +487,7 @@ ReturnStruct displayTravelMenu(MenuResult mR, Game g, Player p, Location l0, Loc
             case 2:
                 p.setCurrentLocation(l2);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{mR, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -526,7 +526,7 @@ ReturnStruct displayTravelMenu(MenuResult mR, Game g, Player p, Location l0, Loc
             case 1:
                 p.setCurrentLocation(l3);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }

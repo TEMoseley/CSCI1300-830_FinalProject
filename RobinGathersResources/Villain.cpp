@@ -36,7 +36,7 @@ ReturnStruct displayClayfaceMenu(MenuResult mR, Game g, Player p, Location l0, L
                 p.setMoney(p.getMoney() + 12);
                 g.setTime(g.getTime() + 1);
                 v0.setRiskLevel(v0.getRiskLevel() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -148,7 +148,7 @@ ReturnStruct displayReverseFlashMenu(MenuResult mR, Game g, Player p, Location l
                 p.setMoney(p.getMoney() + 20);
                 g.setTime(g.getTime() + 1);
                 v1.setRiskLevel(v1.getRiskLevel() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -260,7 +260,7 @@ ReturnStruct displayLexLuthorMenu(MenuResult mR, Game g, Player p, Location l0, 
                 p.setMoney(p.getMoney() + 24);
                 g.setTime(g.getTime() + 1);
                 v2.setRiskLevel(v2.getRiskLevel() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }

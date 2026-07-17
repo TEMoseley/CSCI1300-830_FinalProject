@@ -51,7 +51,22 @@ int main(){
     }
 
     while (true){
-        if(displayMainMenu(CONTINUE, game, player, gotham, centralCity, metropolis, themiscyra, batman, flash, superman, wonderWoman, clayface, reverseFlash, lexLuthor).mR >= END){
+        ReturnStruct returnStruct = displayMainMenu(CONTINUE, game, player, gotham, centralCity, metropolis, themiscyra, batman, flash, superman, wonderWoman, clayface, reverseFlash, lexLuthor);
+        game = returnStruct.g;
+        player = returnStruct.p;
+        gotham = returnStruct.l0;
+        centralCity = returnStruct.l1;
+        metropolis = returnStruct.l2;
+        themiscyra = returnStruct.l3;
+        batman = returnStruct.h0;
+        flash = returnStruct.h1;
+        superman = returnStruct.h2;
+        wonderWoman = returnStruct.h3;
+        clayface = returnStruct.v0;
+        reverseFlash = returnStruct.v1;
+        lexLuthor = returnStruct.v2;
+
+        if(returnStruct.mR >= END){
             break;
         }
         else{
@@ -61,6 +76,7 @@ int main(){
                 player.setCurrentLocation(gotham);
                 player.setMoney(player.getMoney() + 30);
                 cout << "It's a new day. You are now on day " << game.getDay() << endl;
+                cout << "You are now in Gotham." << endl;
                 cout << "Batman gave you another $30k for today. Spend it wisely." << endl;
             }
         }

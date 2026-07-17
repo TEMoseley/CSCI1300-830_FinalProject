@@ -34,7 +34,7 @@ ReturnStruct displayBatmanMenu(MenuResult mR, Game g, Player p, Location l0, Loc
                 p.setKryptonite(p.getKryptonite() - 1);
                 p.setCementBags(p.getCementBags() + 20);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -116,7 +116,7 @@ ReturnStruct displayFlashMenu(MenuResult mR, Game g, Player p, Location l0, Loca
                 p.setMoney(p.getMoney() - 12);
                 p.setVelocitySerum(p.getVelocitySerum() + 4);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -203,7 +203,7 @@ ReturnStruct displaySupermanMenu(MenuResult mR, Game g, Player p, Location l0, L
                 p.setVelocitySerum(p.getVelocitySerum() - 4);
                 p.setKryptonite(p.getKryptonite() + 3);
                 g.setTime(g.getTime() + 1);
-                if (g.getTime() > 8){
+                if (g.getTime() >= 8){
                     ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                     return returnStruct;
                 }
@@ -483,7 +483,7 @@ ReturnStruct displayWonderWomanMenu(MenuResult mR, Game g, Player p, Location l0
                     p.setLassoOfTruth(p.getLassoOfTruth() + 1);
                     h3.setRelationshipLevel(h3.getRelationshipLevel() + 1);
                     g.setTime(g.getTime() + 1);
-                    if (g.getTime() > 8){
+                    if (g.getTime() >= 8){
                         ReturnStruct returnStruct{NEW_DAY, g, p, l0, l1, l2, l3, h0, h1, h2, h3, v0, v1, v2};
                         return returnStruct;
                     }
